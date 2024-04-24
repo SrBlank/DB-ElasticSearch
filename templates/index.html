@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RafiqSearch - Simple Search Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="light-theme">
+    <header>
+        <div class="top-nav">
+            <a href="/lyrics_search"><button class="home-button">Lyrics Search</button></a>
+            <h1>RafiqSearch</h1>
+        </div>
+    </header>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="search()">Search</button>
+    </div>
+    <div id="results" class="results-container"></div>
+
+    <script>
+    function search() {
+        var query = document.getElementById('searchInput').value;
+        fetch(`/search?query=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                var resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = '';
+
+                data.items.forEach(item => {
+                    var div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.innerHTML = `<a href="${item.link}" target="_blank"><h2>${item.title}</h2></a><p>${item.snippet}</p>`;
+                    resultsDiv.appendChild(div);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    </script>
+</body>
+</html>

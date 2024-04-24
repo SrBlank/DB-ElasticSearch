@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RafiqSearch - Lyrics Search Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="light-theme">
+    <header>
+        <div class="top-nav">
+            <a href="/"><button class="home-button">Home</button></a>
+            <h1>RafiqSearch</h1>
+        </div>
+    </header>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Type lyrics, song, or artist...">
+        <button onclick="search()">Search</button>
+    </div>
+    <div id="results" class="results-container"></div>
+
+    <script>
+    function search() {
+        var query = document.getElementById('searchInput').value;
+        fetch(`/searchLyrics?query=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                var resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = '';
+                data.forEach(hit => {
+                    var div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.innerHTML = `
+                        <div class="result-title"><a href="/song_details/${hit._id}">${hit._source.Song} by ${hit._source.Artist}</a></div>
+                        <div class="result-meta">Rank: ${hit._source.Rank} | Year: ${hit._source.Year}</div>
+                        <div class="result-snippet">${hit.highlight.Lyrics ? hit.highlight.Lyrics[0] : ''}</div>
+                    `;
+                    resultsDiv.appendChild(div);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('results').innerHTML = 'No results found.';
+            });
+    }
+    </script>
+</body>
+</html>
