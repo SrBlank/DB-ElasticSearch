@@ -5,11 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Song Details</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .top-nav h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .home-buttons {
+            display: flex;
+            gap: 10px; /* Adjust the gap between buttons as needed */
+        }
+        .home-buttons button {
+            padding: 8px 12px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+        .home-buttons button:hover {
+            background-color: #0056b3;
+        }
+        .song-details-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .song-details-container h2 {
+            margin-bottom: 10px;
+        }
+        .song-details-container p {
+            margin: 10px 0;
+        }
+        .song-details-container p strong {
+            margin-right: 5px;
+        }
+        .song-details-container pre {
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
 </head>
-<body class="light-theme">
+<body>
     <header>
         <div class="top-nav">
-            <a href="/"><button class="home-button">Home</button></a>
+            <div class="home-buttons">
+                <a href="/"><button class="home-button">Web Search</button></a>
+                <a href="/lyrics_search"><button class="home-button">Lyric Search</button></a>
+            </div>
             <h1>Song Details</h1>
         </div>
     </header>
@@ -17,8 +82,8 @@
         <h2>{{ song.Song }} by {{ song.Artist }}</h2>
         <p><strong>Rank:</strong> {{ song.Rank }}</p>
         <p><strong>Year:</strong> {{ song.Year }}</p>
-        <p><strong>Lyrics:</strong> {{ song.Lyrics }}</p>
-        <p><strong>Source:</strong>{{ song.Source }}</p>
+        <pre><strong>Lyrics:</strong><br>{{ song.Lyrics }}</pre>
+        <p><strong>Source:</strong> {{ song.Source }}</p>
     </div>
 </body>
 </html>

@@ -6,7 +6,7 @@ from dotenv import load_dotenv, find_dotenv
 import os
 
 app = Flask(__name__)
-es = Elasticsearch("http://localhost:9200")
+es = Elasticsearch("http://projeslatic.internal:9200")
 
 GOOGLE_API = os.getenv('GOOGLE_API')
 CX = os.getenv('CX')
@@ -87,5 +87,5 @@ def search_lyrics():
     return jsonify(results)
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+#    app.run(debug=True)

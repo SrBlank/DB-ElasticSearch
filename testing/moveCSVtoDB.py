@@ -2,7 +2,7 @@ from elasticsearch import Elasticsearch
 import csv
 
 # Connect to Elasticsearch
-es = Elasticsearch("http://localhost:9200")
+es = Elasticsearch("https://projeslatic.fly.dev:9200")
 
 # Delete the existing index if it exists
 if es.indices.exists(index="lyrics"):
