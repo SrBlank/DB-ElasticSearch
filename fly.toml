@@ -7,7 +7,6 @@ processes = []
 [build]
   builder = "paketobuildpacks/builder:base"
 
-
 [env]
   PORT = "8080"
 
@@ -40,3 +39,11 @@ processes = []
     interval = "15s"
     restart_limit = 0
     timeout = "2s"
+
+[[machines]]
+  type = "web"
+  protocol = "tcp"
+
+  [[machines.ports]]
+    port = 9200
+    handlers = ["http"]
